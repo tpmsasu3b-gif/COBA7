@@ -1,8 +1,8 @@
 // ==========================================
 // KONFIGURASI UTAMA
 // ==========================================
-const SPREADSHEET_ID = '1HHUpqW_dJ9sFN9rNYEyv2NUqWBqHLM6H4CPqtbuLidY'; 
-const CONFIG_FOLDER_ID = '1WkxAmoxn7kN--3a99UP7O_zECJEUi9bg'; // Folder ID untuk menyimpan Logo & Foto Barang
+const SPREADSHEET_ID = '1h2vgi42CjjyGym9XqF4ke-w4PGnp_6IDTWxipJMXfmY'; 
+const CONFIG_FOLDER_ID = '1GQ-U8P_PNppT6Xg2toalwTECyOOIxGRM?hl=ID'; // Folder ID untuk menyimpan Logo & Foto Barang
 
 const SHEET_USERS = 'Users';
 const SHEET_INVENTARIS = 'Inventaris';
@@ -81,28 +81,28 @@ function initializeSheets() {
     configSheet.appendRow(['Key', 'Value']);
     
     // Default Values
-    configSheet.appendRow(['instansi_baris1', 'PEMERINTAH KABUPATEN BENGKULU']);
-    configSheet.appendRow(['instansi_baris2', 'DINAS PENDIDIKAN DAN KEBUDAYAAN']);
-    configSheet.appendRow(['nama_sekolah', 'SMP NEGERI CONTOH SISTEM']);
-    configSheet.appendRow(['alamat', 'Jl. Merpati No. 123, Ratu Samban, Kota Bengkulu, Kode Pos 38222']);
-    configSheet.appendRow(['kontak', 'Telp: (0736) 123456 | Email: admin@sekolah.sch.id']);
+    configSheet.appendRow(['instansi_bagian', 'ASAM SULFAT & UTILITAS IIIB']);
+    configSheet.appendRow(['instansi_departemen', 'OPERASI PABRIK IIIB']);
+    configSheet.appendRow(['nama_unit kerja', 'ASAM SULFAT II']);
+    configSheet.appendRow(['alamat', 'Jl. STG17,5']);
+    configSheet.appendRow(['kontak', 'Telp: 5775/5767 | Email: tpmsasu3b@gmail.com']);
     configSheet.appendRow(['logo_kiri', 'https://upload.wikimedia.org/wikipedia/commons/9/98/Kota_Bengkulu.png']);
     configSheet.appendRow(['logo_kanan', 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Logo_of_Ministry_of_Education_and_Culture_of_Republic_of_Indonesia.svg']);
-    configSheet.appendRow(['kota_surat', 'Bengkulu']);
-    configSheet.appendRow(['nama_kepsek', '(Nama Kepala Sekolah)']);
-    configSheet.appendRow(['nip_kepsek', '19800101 200001 1 001']);
-    configSheet.appendRow(['nama_petugas', '(Nama Petugas Barang)']);
-    configSheet.appendRow(['nip_petugas', '-']);
+    configSheet.appendRow(['memo_peminjaman', 'keterangan']);
+    configSheet.appendRow(['nama_AVPJAVP', '(Nama AVPJAVP)']);
+    configSheet.appendRow(['nik_AVPJAVP', '214208']);
+    configSheet.appendRow(['nama_operator', '(Nama Operator Peminjam)']);
+    configSheet.appendRow(['nik_operator', '-']);
   }
 }
 
 function doGet() {
   initializeSheets();
   return HtmlService.createHtmlOutputFromFile('index')
-    .setTitle('Sistem Inventaris QR Code')
+    .setTitle('Sistem Inventaris SASU 3B')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
     .addMetaTag("viewport", "width=device-width, initial-scale=1.0")
-    .setFaviconUrl('https://cdn-icons-png.flaticon.com/512/201/201614.png');
+    .setFaviconUrl('https://cdn-icons-png.flaticon.com/128/9359/9359442.png');
 }
 
 // ==========================================
@@ -665,18 +665,18 @@ function generatePDF() {
     const logoKananBase64 = imageToDataUri(DB_CONF.logo_kanan);
 
     const CONF = {
-      instansi_baris1: DB_CONF.instansi_baris1 || "PEMERINTAH",
-      instansi_baris2: DB_CONF.instansi_baris2 || "DINAS TERKAIT",
-      nama_sekolah:    DB_CONF.nama_sekolah || "NAMA INSTANSI",
+      instansi_bagian: DB_CONF.instansi_bagian || "BAGIAN TERKAIT",
+      instansi_departemen: DB_CONF.instansi_departemen || "DERPARTEMEN TERKAIT",
+      unit_kerja:    DB_CONF.unit_kerja || "UNIT KERJA",
       alamat:          DB_CONF.alamat || "Alamat Belum Diatur",
       kontak:          DB_CONF.kontak || "Kontak Belum Diatur",
       logo_kiri:       logoKiriBase64, 
       logo_kanan:      logoKananBase64,
-      kota_surat:      DB_CONF.kota_surat || "Kota",
-      nama_kepsek:     DB_CONF.nama_kepsek || "(Nama Kepala Sekolah)",
-      nip_kepsek:      DB_CONF.nip_kepsek || "-",
-      nama_petugas:    DB_CONF.nama_petugas || "(Nama Petugas)",
-      nip_petugas:     DB_CONF.nip_petugas || "-"
+      memo_peminjaman:      DB_CONF.memo_peminjaman || "Keterangan",
+      nama_AVPJAVP:     DB_CONF.nama_avpjavp || "(Nama AVPJAVP)",
+      nik_AVPJAVP:      DB_CONF.nip_avpjavp || "-",
+      nama_operator:    DB_CONF.nama_operator || "(Nama Operator)",
+      nik_operator:     DB_CONF.nik_operator || "-"
     };
 
     const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 9).getValues();
